@@ -1,0 +1,25 @@
+{
+  "name": "evr",
+  "version": "1.0.0",
+  "description": "Evr Stream Extention",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nalonluap/evr-stream-interactive.git"
+  },
+  "keywords": [
+    "stream"
+  ],
+  "author": "Paul",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nalonluap/evr-stream-interactive/issues"
+  },
+  "homepage": "https://github.com/nalonluap/evr-stream-interactive#readme",
+  "dependencies": {
+    "http": "*"
+  }
+}

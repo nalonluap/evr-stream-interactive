@@ -8,7 +8,7 @@ This is a simple hero unit, a simple interactive chat game for stream viewers on
 git clone https://github.com/IBM/logdna-cos.git
 cd evr-stream-interactive
 ```
-### Start this application.
+### Run.
 ```
 npm install
 node app.js

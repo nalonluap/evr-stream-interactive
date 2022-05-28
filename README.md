@@ -5,11 +5,10 @@ This is a simple hero unit, a simple interactive chat game for stream viewers on
 
 ### Download the source code from Github and access the project folder.
 ```sh
-git clone https://github.com/IBM/logdna-cos.git
 cd evr-stream-interactive
 ```
 ### Run.
 ```
 npm install
-node app.js
+npm run start
 ```

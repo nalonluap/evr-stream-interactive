@@ -1,5 +1,5 @@
 const tmi = require("tmi.js");
-const game_text = require("./game-text");
+const game_text = require("../game/game-text");
 const client = new tmi.Client({
     // options: {
     //     debug: true

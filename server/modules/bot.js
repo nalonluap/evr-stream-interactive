@@ -1,4 +1,5 @@
 const tmi = require("tmi.js");
+const game_text = require("./game-text");
 const client = new tmi.Client({
     // options: {
     //     debug: true
@@ -16,7 +17,7 @@ client.on('message', (channel, tag, message, self) => {
 
     if (self) return;
 
-    console.log(`${tag['display-name']}: ${message}`)
+    game_text.OnMessageInTwitchChat(tag['display-name'], message);
 })
 
 

@@ -2,8 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
+
 const log = require('./modules/logger');
 const api = require('./routes/api');
+const bot = require('./modules/bot'); // comment this if bot don't need start
 
 const app = express();
 const PORT = process.env.PORT || 3000;

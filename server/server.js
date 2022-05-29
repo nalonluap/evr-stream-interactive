@@ -4,7 +4,6 @@ const morgan = require('morgan');
 
 
 const log = require('./modules/logger');
-const api = require('./routes/api');
 const bot = require('./modules/bot'); // comment this if bot don't need start
 
 const app = express();
@@ -20,8 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 //add the router
-app.use('/', api);
-
+app.use('/', require('./routes/api'));
+app.use('/api/bot', require('./routes/bot_connect'));
 
 
 app.listen(PORT, () => {

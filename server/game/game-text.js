@@ -1,7 +1,7 @@
 
 //in this func we heva all chat message
-exports.OnMessageInTwitchChat = async (user, message) => {
+exports.OnMessageInTwitchChat = async (user, message,channel) => {
 
 
-    console.log(`${user}: ${message}`)
+    console.log(`${channel} ${user}: ${message}`)
 }

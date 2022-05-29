@@ -8,16 +8,16 @@ const client = new tmi.Client({
     //     username: "",
     //     password: ""
     // },
-    channels: ['just_ns'] // A twitch chanel name where will be pars message , only lowercase chars 
+    // channels: ['just_ns'] // A twitch chanel name where will be pars message , only lowercase chars 
 });
 
-client.connect();
+client.connect().catch((err) => { console.error(err) });
 
 client.on('message', (channel, tag, message, self) => {
 
     if (self) return;
 
-    game_text.OnMessageInTwitchChat(tag['display-name'], message);
+    game_text.OnMessageInTwitchChat(tag['display-name'], message, channel);
 })
 
 

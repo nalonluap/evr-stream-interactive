@@ -27,6 +27,10 @@
     "http": "*",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
-    "tmi.js": "^1.8.5"
+    "tmi.js": "^1.8.5",
+    "vue": "^3.2.36"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }

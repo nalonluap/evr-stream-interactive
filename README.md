@@ -8,7 +8,7 @@ This is a simple hero unit, a simple interactive chat game for stream viewers on
 cd evr-stream-interactive
 ```
 ### Run.
-```
+```sh
 npm install
 npm run start
 ```

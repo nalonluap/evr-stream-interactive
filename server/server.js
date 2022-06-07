@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-
+const path = require('path');
 
 const log = require('./modules/logger');
 const bot = require('./modules/bot'); // comment this if bot don't need start
@@ -19,7 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 //add the router
-app.use('/', require('./routes/api'));
+app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
+app.use('/api', require('./routes/api'));
 app.use('/api/bot', require('./routes/bot_connect'));
 
 

@@ -41,7 +41,7 @@ main {
   height: 100%;
   display: flex;
   justify-content: center;
-  background-color: rgb(174, 255, 0);
+  background-color:darkseagreen;
   padding: 1rem;
   @media only screen and (max-width: 400px) {
     padding: 0.5rem;

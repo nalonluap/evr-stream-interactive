@@ -1,21 +1,30 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-  <PoleWords msg="Pole"/>
-</template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import PoleWords from './components/PoleWords.vue'
+import BoardWords from './components/BoardWords.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    PoleWords
+    PoleWords,
+    BoardWords
   }
 }
 </script>
+
+<template>
+  <transition name="fade-modal">
+    <PoleWords
+      v-if="showModal"
+      :word="word"
+      :score="score"
+      :row="row"
+      @reset="handleModalReset"
+      @close="showModal = false"
+    />
+  </transition>
+  <BoardWords :board="board" :errors="errors" :wiggle="wiggle" :evaluation="evaluation" />  
+</template>
 
 <style>
 #app {

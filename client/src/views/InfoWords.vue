@@ -1,5 +1,5 @@
 <script>
-const props = defineProps({ msg: String });
+// const props = defineProps({ msg: String });
 export default {
   components: {},
   

@@ -1,9 +1,8 @@
 <script>
+const props = defineProps({ msg: String });
 export default {
-  name: 'InfoWords',
-  props: {
-    msg: String
-  }
+  components: {},
+  
 }
 </script>
 
@@ -22,7 +21,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 div.hello {
-    width: 450px;
     border-radius: 10px;
     margin-top: 30px;
     background-color:antiquewhite;

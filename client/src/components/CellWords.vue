@@ -1,5 +1,29 @@
-<script setup>
+<script>
+export default {
+  components: {},
 
+  props: {
+    words: Array,
+  },
+
+  data() {
+    return {
+      
+    };
+  },
+
+  created() {
+    // format the value using the column's 'formatValue' method
+  
+  },
+
+  methods: {
+    onPageChange(value) {
+      this.currentPage = value;
+      this.currentindex = value * this.perpage - this.perpage;
+    },
+  },
+};
 </script>
 
 <template>

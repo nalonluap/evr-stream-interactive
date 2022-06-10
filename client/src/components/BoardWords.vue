@@ -1,4 +1,5 @@
 <script setup>
+
 import CellWords from './CellWords.vue';
 import InfoWords from './InfoWords.vue';
 
@@ -10,7 +11,7 @@ import InfoWords from './InfoWords.vue';
     <section class="board">
         <h1>Words</h1>  
         <section class="cell">    
-            <CellWords :cell="cell" :index="index" :wiggle="wiggle" :evaluation="evaluation" />
+            <CellWords :words="words" />
         </section>
         <section class="information">    
             <InfoWords :msg="Hello" />

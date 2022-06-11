@@ -1,41 +1,13 @@
 <script>
 import PoleWords from './PoleWords.vue'
 import BoardWords from './BoardWords.vue'
-import axios from 'axios'
-
 
 export default {
   name: 'MainPage',
   components: {
     PoleWords,
     BoardWords
-  },
-
-  created() {
-      this.getAllWords();
-  },
-
-  data () {
-      return {
-        words: [],
-        endpoint: 'localhost',
-      }
-  },
-  
-  methods: {
-      getAllWords() {
-        axios.get(this.endpoint)
-          .then(response => {
-            this.words = response.data;
-            console.log(this.words);
-          })
-          .catch(error => {
-            console.log('-----error-------');
-            console.log(error);
-          })
-      }
   }
-
 }
 </script>
 
@@ -50,7 +22,7 @@ export default {
       @close="showModal = false"
     />
   </transition>
-  <BoardWords :words=words />  
+  <BoardWords />  
 </template>
 
 <style>

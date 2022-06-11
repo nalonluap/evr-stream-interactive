@@ -6,6 +6,7 @@ import CellWords from '../views/CellWords.vue';
 import InfoWords from '../views/InfoWords.vue';
 import MainPage from '../views/MainPage.vue';
 import PoleWords from '../views/PoleWords.vue';
+import AuthWords from '../views/AuthWords.vue';
 
 
 
@@ -35,6 +36,11 @@ const routes = [
         path: '/info',
         name: 'InfoWords',
         component: InfoWords
+    },
+    {
+        path: '/auth',
+        name: 'AuthWords',
+        component: AuthWords
     },
 ]
 

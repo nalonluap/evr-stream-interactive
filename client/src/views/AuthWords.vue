@@ -1,0 +1,108 @@
+<template>
+  <main>
+    <section class="home">
+      <div>
+        <h3>Auth Page</h3>
+      </div>
+      <div class="channel">
+        <input v-model="channelName" class="input-channel" placeholder="channel name">
+        <button class="button-channel" @click="checkChannel();">Connection</button>
+      </div>
+    </section>
+  </main>
+</template>
+
+<script>
+import axios from 'axios'
+import router from '../router/index.js'
+
+export default {
+  name: "AuthWords",
+  components: {},
+
+  data () { 
+      return {
+        endpoint: 'localhost:3000/api/game/text/start',
+        gameId: null,
+        channelName: ''
+      }
+  },
+
+  created() {
+      this.checkConnection();
+  },
+  
+  methods: {
+      checkChannel() {
+        axios.post(this.endpoint, {
+        channelName: this.channelName
+      })
+      .then(function (response) {
+        this.gameId = response.gameId
+        router.push({name: 'Main'});
+        console.log(this.gameId);
+        //alert('success');
+      })
+      .catch(function (error) {
+        console.log(error);
+        //router.push({name: 'Main'}); проверка роутера
+        //alert('faild');
+        });
+      }, //check channel and get gameId
+
+      checkConnection() {
+        axios.get(this.endpoint)
+          .then(response => {
+            //this.words = response.data;
+            console.log(response);
+          })
+          .catch(error => {
+            console.log('connection field');
+            console.log(error);
+            alert('connection field');
+          }) //client-server ping-pong
+      } 
+  }
+};
+</script>
+
+<style>
+.h{
+  background-color: rgb(104, 131, 63);
+}
+.channel{
+  align-content: center;
+  margin-top: 35vh;
+  background-color: rgb(77, 74, 74);
+  padding: 30px;
+  border-radius: 1rem;
+}
+.input-channel{
+  font-family: 'Roboto', sans-serif;
+  text-color: rgb(0, 0, 0);
+  font-size: 1.2rem;
+	margin: 0 auto;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  display: block;
+  transition: all 0.3s;
+}
+.button-channel{
+  width: 100%;
+  height: 54.4px;
+  margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  display: block;
+  transition: all 0.3s;
+}
+.button-channel:active{
+  background-color:rgb(178, 177, 177)
+}
+</style>

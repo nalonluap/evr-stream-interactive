@@ -27,31 +27,9 @@ export default {
 </script>
 
 <template>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
-  <div ref="element">{{  }}</div>
+  <div v-for='index in 25' :key='index'>
+    {{ "A" }}
+  </div>
 </template>
 
 <style lang="scss" scoped>

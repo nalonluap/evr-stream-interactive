@@ -3,6 +3,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
+const db = require('./db');
 const log = require('./modules/logger');
 const bot = require('./modules/bot'); // comment this if bot don't need start
 
@@ -22,7 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 app.use('/api', require('./routes/api'));
 app.use('/api/bot', require('./routes/bot_connect'));
+app.use('/api/game/words', require('./routes/gw_api'));
 
+db.sync({force: true}).then(() => {
+  log.info('DB is runnig')
+});// delete {force: true}, if db do not be cleaned in startup
 
 app.listen(PORT, () => {
   console.log(`Running at Port ${PORT}`);

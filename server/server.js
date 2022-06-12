@@ -27,7 +27,7 @@ app.use('/api/game/words', require('./routes/gw_api'));
 
 db.sync({force: true}).then(() => {
   log.info('DB is runnig')
-});// delete {force: true}, if db do not be cleaned in startup
+});// delete {force: true}, if db dont need cleaned in startup
 
 app.listen(PORT, () => {
   console.log(`Running at Port ${PORT}`);

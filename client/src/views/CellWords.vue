@@ -1,31 +1,65 @@
 <script>
+
 export default {
   components: {},
 
   props: {
-    words: Array,
+    word: String, //words getting from server
   },
 
   data() {
     return {
-      visible: true
+      visible: true,
+      letters: [],
+      count: 0
     };
   },
 
   created() {
-    // format the value using the column's 'formatValue' method
-  
+    //only test filling
+    this.count = 3;
+    this.OutToScreen(this.count, "WORDS");
+
   },
 
   methods: {
-    
+    GetWords(wordl) { 
+      if(wordl.length == 5){
+        for (let i = 0; i < 5; i++) {
+          if(this.letters.length < 25){
+            this.letters.push({letter: wordl[i]});
+          }
+        } 
+      } else {
+        console.log("word length error");
+      }
+    },
+
+    EmptyCellsInit(current) {
+      for (let i = current * 5; i < 25; i++) {
+        this.letters.push({letter: ""});
+      } 
+    },
+
+    OutToScreen(words_number, word) {
+      if(words_number <= 5){
+        let j = 0;
+        for (let i = 0; i < words_number; i++) {
+          this.GetWords(word);
+          j = i;
+        }
+        this.EmptyCellsInit(j+1);
+      } else {
+        console.log('words quantity error');
+      }
+    }
   },
 };
 </script>
 
 <template>
-  <div v-for='index in 25' :key='index'>
-    {{ "A" }}
+  <div v-for="item in letters" :key="item.letter">
+    {{ item.letter }}
   </div>
 </template>
 

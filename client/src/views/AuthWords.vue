@@ -96,7 +96,7 @@ h1{
 }
 .input-channel {
   font-family: "Roboto", sans-serif;
-  text-color: rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   font-size: 1.2rem;
   margin: 0 auto;
   padding: 1rem 2rem;

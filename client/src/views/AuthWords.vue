@@ -1,9 +1,7 @@
 <template>
   <main>
     <section class="home">
-      <div>
-        <h3>Auth Page</h3>
-      </div>
+      <h1>EVR INTERACTIVE WORDS</h1>
       <div class="channel">
         <input
           v-model="channelName"
@@ -79,9 +77,19 @@ export default {
 .h {
   background-color: rgb(104, 131, 63);
 }
+h1{
+  font-family: "Press Start 2P"
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 .channel {
   align-content: center;
+  
   margin-top: 35vh;
+  margin-left: 50px;
+  max-width: 300px;
+
   background-color: rgb(77, 74, 74);
   padding: 30px;
   border-radius: 1rem;
@@ -113,5 +121,9 @@ export default {
 }
 .button-channel:active {
   background-color: rgb(178, 177, 177);
+}
+@font-face {
+  font-family: "nippon blocks";
+  src: local("nippon blocks") url("../../public/fonts/nipponbl.ttf") format("truetype");
 }
 </style>

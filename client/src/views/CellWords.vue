@@ -8,7 +8,7 @@ export default {
 
   data() {
     return {
-      
+      visible: true
     };
   },
 
@@ -18,10 +18,7 @@ export default {
   },
 
   methods: {
-    onPageChange(value) {
-      this.currentPage = value;
-      this.currentindex = value * this.perpage - this.perpage;
-    },
+    
   },
 };
 </script>

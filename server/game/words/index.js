@@ -51,3 +51,31 @@ exports.DeleteQueryById = async (id) => {
     }
 
 };
+
+exports.StartGame = async (gameId) => {
+
+    try {
+        const num = await GetRandomNumber();
+        console.log(num);
+        const query = await tGameWords.findByPk(num);
+
+        if (query != null) return query.answers;
+
+    } catch (err) {
+        log.error(`Failed start game by id ${gameId}`, err.message);
+    }
+
+};
+
+
+let GetRandomNumber = async () => {
+    const QeuryLen = (await tGameWords.findAndCountAll()).count;
+    console.log(QeuryLen);
+    const min = 1;
+
+    if (QeuryLen) {
+        return Math.floor(Math.random() * (QeuryLen - min) + min);
+    }
+
+    return null
+}

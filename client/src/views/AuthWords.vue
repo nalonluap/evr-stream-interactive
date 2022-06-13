@@ -122,8 +122,4 @@ h1{
 .button-channel:active {
   background-color: rgb(178, 177, 177);
 }
-@font-face {
-  font-family: "nippon blocks";
-  src: local("nippon blocks") url("../../public/fonts/nipponbl.ttf") format("truetype");
-}
 </style>

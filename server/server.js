@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
-
+const history = require('connect-history-api-fallback');
 const db = require('./db');
 const log = require('./modules/logger');
 const bot = require('./modules/bot'); // comment this if bot don't need start
@@ -17,7 +17,8 @@ app.use(cors());
 //add parsing body from url request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+//add vue routes
+app.use(history());
 
 //add the router
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));

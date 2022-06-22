@@ -1,70 +1,118 @@
 <script>
+import words from '../utils/words'
 
 export default {
   components: {},
 
   props: {
-    word: String, //words getting from server
+    pWord: [] //words getting from server
   },
 
   data() {
     return {
       visible: true,
-      letters: [],
-      count: 0
+      allWords: words,
+      hiddenWord: [],
+      //word: [],
     };
   },
 
   created() {
     //only test filling
-    this.count = 3;
-    this.OutToScreen(this.count, "WORDS");
-
+    this.hiddenWord = 'WORDS';
+    //console.log(this.GetRandomWord());
   },
 
   methods: {
-    GetWords(wordl) { 
-      if(wordl.length == 5){
-        for (let i = 0; i < 5; i++) {
-          if(this.letters.length < 25){
-            this.letters.push({letter: wordl[i]});
+    GetRandomWord(){
+      return this.allWords[Math.floor(Math.random() * this.allWords.length)];
+    },
+
+    yellowLetter(letter){
+      //console.log(letter);
+      for(let i = 0; i < 5; i++){
+        if(letter == this.hiddenWord[i]){
+          if(this.pWord.indexOf(letter) != i){
+            console.log('yellow');
+            return true;
           }
-        } 
-      } else {
-        console.log("word length error");
-      }
-    },
-
-    EmptyCellsInit(current) {
-      for (let i = current * 5; i < 25; i++) {
-        this.letters.push({letter: ""});
-      } 
-    },
-
-    OutToScreen(words_number, word) {
-      if(words_number <= 5){
-        let j = 0;
-        for (let i = 0; i < words_number; i++) {
-          this.GetWords(word);
-          j = i;
+           console.log('not-yellow');
+          return false
         }
-        this.EmptyCellsInit(j+1);
-      } else {
-        console.log('words quantity error');
       }
-    }
+      return false;
+    },
+
+    greenLetter(letter){
+      //console.log(letter);
+      for(let i = 0; i < 5; i++){
+        if(letter == this.hiddenWord[i]){
+          if(this.pWord.indexOf(letter) == i){
+            console.log('green');
+            return true;
+          }
+          console.log('not-green');
+          return false
+        }
+      }
+      return false;  
+    },
   },
 };
 </script>
 
 <template>
-  <div v-for="item in letters" :key="item.letter">
-    {{ item.letter }}
+  <div v-for="item in 5" :key="item.letter">
+    <div v-if="yellowLetter(this.pWord[item - 1]) == true" class="words-yellow"> 
+      {{ this.pWord[item - 1] }}
+    </div>
+    <div v-else-if="greenLetter(this.pWord[item - 1]) == true" class="words-green">
+      {{ this.pWord[item - 1] }}
+    </div>
+    <div v-else class="words">
+      {{ this.pWord[item - 1] }}
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-div {
+.button-next {
+  position: relative;
+  align-items: center;
+  width: 100%;
+  height: 54.4px;
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+  border: none;
+  font-size: 1.2rem;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.3s;
+}
+div.words-green {
+  background-color: green;
+  user-select: none;
+  width: 60px;
+  height: 60px;
+  border: 1px solid gray;
+  color: rgb(222, 219, 219);
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+}
+div.words-yellow {
+  background-color: rgb(205, 205, 8);
+  user-select: none;
+  width: 60px;
+  height: 60px;
+  border: 1px solid gray;
+  color: rgb(222, 219, 219);
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+}
+div.words {
   user-select: none;
   width: 60px;
   height: 60px;

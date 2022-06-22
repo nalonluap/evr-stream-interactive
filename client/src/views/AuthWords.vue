@@ -26,7 +26,7 @@ export default {
 
   data() {
     return {
-      endpoint: `${process.env.VUE_APP_HOST}/api/game/text/start`,
+      endpoint: `${process.env.VUE_APP_HOST}/api/game/words/start`,
       gameId: null,
       channelName: "",
     };

@@ -108,7 +108,8 @@ h1{
 }
 .button-channel {
   width: 100%;
-  height: 54.4px;
+  min-height: 24.4px;
+  position: flex;
   margin-top: 10px;
   font-family: "Roboto", sans-serif;
   border: none;

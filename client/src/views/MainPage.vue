@@ -22,7 +22,9 @@ export default {
       @close="showModal = false"
     />
   </transition>
-  <BoardWords />  
+  <section class="game">    
+    <BoardWords></BoardWords>
+  </section>  
 </template>
 
 <style>
@@ -33,5 +35,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.brd{
+  float: right;
+}
+.h1{
+  align-items: center;
+  font-size: 20px;
+
 }
 </style>

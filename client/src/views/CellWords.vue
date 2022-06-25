@@ -64,37 +64,27 @@ export default {
 <template>
   <div v-for="item in 5" :key="item.letter">
     <div v-if="yellowLetter(this.pWord[item - 1]) == true" class="words-yellow"> 
-      {{ this.pWord[item - 1] }}
+      <b>{{ this.pWord[item - 1] }}</b>
     </div>
     <div v-else-if="greenLetter(this.pWord[item - 1]) == true" class="words-green">
-      {{ this.pWord[item - 1] }}
+      <b>{{ this.pWord[item - 1] }}</b>
     </div>
     <div v-else class="words">
-      {{ this.pWord[item - 1] }}
+      <b>{{ this.pWord[item - 1] }}</b>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.button-next {
-  position: relative;
-  align-items: center;
-  width: 100%;
-  height: 54.4px;
-  margin-top: 10px;
-  font-family: "Roboto", sans-serif;
-  border: none;
-  font-size: 1.2rem;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  background-color: rgb(255, 255, 255);
-  transition: all 0.3s;
+
+b {
+  font-size: 15px;
 }
 div.words-green {
   background-color: green;
   user-select: none;
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   border: 1px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
@@ -104,8 +94,8 @@ div.words-green {
 div.words-yellow {
   background-color: rgb(205, 205, 8);
   user-select: none;
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   border: 1px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
@@ -114,66 +104,16 @@ div.words-yellow {
 }
 div.words {
   user-select: none;
-  width: 60px;
-  height: 60px;
+  width: 35px;
+  height: 35px;
   border: 1px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
   display: grid;
   place-items: center;
 }
-div.animate {
-  animation: scale 0.1s;
-  animation-iteration-count: 1;
-}
-div.wiggle {
-  animation: wiggle 0.3s;
-  animation-iteration-count: 3;
-}
-div.flip {
-  animation: flip 0.5s;
-  animation-iteration-count: 1;
+div {
+  border-radius: 5px;
 }
 
-@keyframes wiggle {
-  0% {
-    transform: translateX(0px);
-  }
-  25% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(0px);
-  }
-  75% {
-    transform: translateX(5px);
-  }
-  100% {
-    transform: translateX(0px);
-  }
-}
-
-@keyframes scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes flip {
-  0% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0);
-  }
-  100% {
-    transform: scaleY(1);
-  }
-}
 </style>

@@ -14,7 +14,8 @@ export default {
       count: 0,
       visible: false,
       pWords : ['WETEL', 'LAMBO', 'WORLD', 'TIRON', 'WORKS', 'WORDS'], //test words
-      tempWords : ['', '', '', '', '', ''] 
+      tempWords : ['', '', '', '', '', ''],
+      players: ['Mike', 'Paul', 'Leo', 'Michael']
     };
   },
 
@@ -42,16 +43,21 @@ export default {
 
 <template>
   <main>
-    <section class="board">
+    <section>
+      <div class="title-border">
+        <h2 class="title-words">Words</h2><br/><h3 class="subtitle">EVR Interactive</h3>
+      </div>
+    </section>
+    <section v-for="item in 4" :key="item" class="board">
       <button @click="clearCells()" class ="btn btn-red btn-help">?</button>
-      <button @click="clearCells()" class ="btn btn-reload btn-red"></button>
-        <h1>Words</h1>
-        <button @click="visible=true" v-show="!visible" class="button-channel">Start Game</button>
-        <button @click="clearCells(), visible=!visible" v-show="visible" class="button-channel btn-cancel">End Game</button>  
+      <button @click="clearCells()" class ="btn btn-red btn-reload"></button>
+        <h1>{{this.players[item - 1]}}</h1>
+        <button @click="visible=true" v-show="!visible" class="btn-start">Start Game</button>
+        <button @click="clearCells(), visible=!visible" v-show="visible" class="btn-cancel">End Game</button>  
         <section v-for="item in tempWords" :key="item" v-show="visible" class="cell">    
             <CellWords :pWord="item" />
         </section>
-        <button @click="nextWord()" v-show="visible" class="button-channel btn-next">Next</button>
+        <button @click="nextWord()" v-show="visible" class="btn-next">Next</button>
         <section class="information">    
             <InfoWords :msg="Hello" />
         </section>
@@ -64,22 +70,35 @@ h1{
     margin-left: 45px;
     color: antiquewhite;
 }
+h2.title-words{
+  font-family: "Press Start 2P";
+  font-size: 40px;
+  
+}
+h3.subtitle{
+  font-family: "Press Start 2P";
+  font-size: 20px;
+}
 main {
   display: flex;
   justify-content: center;
 }
 
 section.board {
+  margin-top: 230px;
+  margin-left: 5px;
+  margin-right: 35px;
   background-color: rgb(77, 74, 74);
   border-radius: 20px;  
   padding: 20px;
-  height: 680px;
+  height: 440px;
+  width: 300px;
   gap: 10px;
   grid-template-columns: repeat(5, 1fr);
 }
 section.cell {
-  margin-top: 20px;
-  margin-left: 20px;  
+  margin-top: 10px;
+  margin-left: 13px;  
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(5, 1fr);
@@ -89,10 +108,48 @@ section.information {
   width: fit-content;
 }
 .btn-cancel{
+  width: 100%;
+  min-height: 40px;
+  /*margin-top: 10px;*/
+  font-family: "Roboto", sans-serif;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  display: block;
+  transition: all 0.3s;
+  margin-top: 20px;
+  max-height: 20px;
+  position: relative;
   background-color: maroon;
 }
-.btn-next{
+.btn-start{
+  width: 100%;
+  min-height: 40px;
+  /*margin-top: 10px;*/
+  font-family: "Roboto", sans-serif;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  display: block;
+  transition: all 0.3s;
   margin-top: 20px;
+  max-height: 20px;
+  position: relative;
+  background-color: wheat;
+}
+.btn-next{
+  width: 100%;
+  min-height: 40px;
+  /*margin-top: 10px;*/
+  font-family: "Roboto", sans-serif;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  display: block;
+  transition: all 0.3s;
+  margin-top: 20px;
+  max-height: 20px;
+  position: relative;
   background-color: green;
 }
 .btn {
@@ -162,5 +219,31 @@ section.information {
   float:left;
   color:#fff;
   font-size:30px;
+}
+p{
+  margin-bottom: 40px;
+}
+div.title-border{
+  position: fixed;
+  
+  margin-left: 550px;
+
+  width: 400px;
+
+  background-color:rgb(235, 174, 32);
+
+  border-right:5px solid rgb(0, 169, 73);
+  
+  border-left:5px solid rgb(152, 152, 152);
+
+  border-bottom:5px solid rgb(42, 41, 41);
+
+  border-top:5px solid rgb(239, 239, 239);
+
+  border-radius:50px;
+
+  -webkit-border-radius:10px;
+
+  -moz-border-radius:10px;
 }
 </style>

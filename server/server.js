@@ -3,9 +3,11 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 const history = require('connect-history-api-fallback');
+
 const db = require('./db');
 const log = require('./modules/logger');
-const bot = require('./modules/bot'); // comment this if bot don't need start
+
+require('./modules/bot'); // comment this if bot don't need start
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,7 +19,7 @@ app.use(cors());
 //add parsing body from url request
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//add vue routes
+//add vue routes to express server
 app.use(history());
 
 //add the router
@@ -25,12 +27,14 @@ app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 app.use('/api', require('./routes/api'));
 app.use('/api/bot', require('./routes/bot_connect'));
 app.use('/api/game/words', require('./routes/gw_api'));
+app.use('/api/user/', require('./routes/users'));
 
-db.sync({force: true}).then(() => {
+
+db.sync({ force: true }).then(() => {
   log.info('DB is runnig')
 });// delete {force: true}, if db dont need cleaned in startup
 
 app.listen(PORT, () => {
-  console.log(`Running at Port ${PORT}`);
-  log.info(`Running at Port ${PORT}`);
+  console.log(`Running at port ${PORT}`);
+  log.info(`Running at port ${PORT}`);
 });

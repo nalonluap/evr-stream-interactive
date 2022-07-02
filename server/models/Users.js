@@ -4,7 +4,8 @@ class Users extends Model { }
 
 Users.init({
     user: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true,
     },
     active: {
         type: DataTypes.BOOLEAN,
@@ -12,6 +13,9 @@ Users.init({
     },
     gameID: {
         type: DataTypes.UUIDV4
+    },
+    socketID: {
+        type: DataTypes.STRING
     }
 }, {
     sequelize,

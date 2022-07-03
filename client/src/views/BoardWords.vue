@@ -1,41 +1,71 @@
 <script>
 
 import CellWords from './CellWords.vue';
-import InfoWords from './InfoWords.vue';
+
+const { io } = require("socket.io-client");
+
+const socket = io('http://localhost:3001');
 
 export default {
   components: {
     CellWords,
-    InfoWords
   },
 
   data() {
     return {
       count: 0,
       visible: false,
-      pWords : ['WETEL', 'LAMBO', 'WORLD', 'TIRON', 'WORKS', 'WORDS'], //test words
-      tempWords : ['', '', '', '', '', ''],
-      players: ['Mike', 'Paul', 'Leo', 'Michael']
+      word: 'WORSD',
+      username: 'John',
     };
   },
 
   created() {
     //only test filling
     this.count = 0;
+    
+    try{
+      socket.on("connect", () => {
+        // game socket connection
+        console.log('game socket connection')
+      });
+    }
+    catch (error) {
+        console.log(`Error game server connection ${error.message}`);
+    }
+
+  },
+
+  updated() {
+
+    // whenever data changes and the component re-renders, this is called.
+    this.scrollToEnd();
+    
   },
 
   methods: {
     nextWord(){
       this.count++;
-      for(let i = 0; i < this.count; i++){
-        this.tempWords[i] = this.pWords[i]
-      }
+      //this.GetWord();
     },
 
     clearCells(){
-      this.tempWords = ['', '', '', '', '', ''];
       this.count = 0;
+    },
+
+    scrollToEnd: function () {
+      // scroll to the start of the last message
+      var container = this.$el.querySelector("#foo");
+      container.scrollTop = container.scrollHeight;
+    },
+
+    parseJson(message) {
+      let userData = JSON.parse(message);
+
+      this.word = userData['message'];
+      this.username = userData['username'];
     }
+
   }
 }
 //defineProps({ board: Array, wiggle: Array, evaluation: Array });
@@ -43,24 +73,22 @@ export default {
 
 <template>
   <main>
-    <section>
+    <section class="board">
       <div class="title-border">
-        <h2 class="title-words">Words</h2><br/><h3 class="subtitle">EVR Interactive</h3>
+        <h3 class="subtitle">EVR Interactive</h3>
       </div>
-    </section>
-    <section v-for="item in 4" :key="item" class="board">
       <button @click="clearCells()" class ="btn btn-red btn-help">?</button>
       <button @click="clearCells()" class ="btn btn-red btn-reload"></button>
-        <h1>{{this.players[item - 1]}}</h1>
-        <button @click="visible=true" v-show="!visible" class="btn-start">Start Game</button>
-        <button @click="clearCells(), visible=!visible" v-show="visible" class="btn-cancel">End Game</button>  
-        <section v-for="item in tempWords" :key="item" v-show="visible" class="cell">    
-            <CellWords :pWord="item" />
+      <button @click="visible=true" v-show="!visible" class="btn-start">Start Game</button>
+      <button @click="clearCells(), visible=!visible" v-show="visible" class="btn-cancel">End Game</button>
+      <div class="pole" id="foo">
+        <section v-for="item in count" :key="item" v-show="visible" class="cell">
+          <div class="player">
+            <h3 class="subtitle username">{{this.username}}</h3>
+          </div>
+          <CellWords :pWord="word"/>   
         </section>
-        <button @click="nextWord()" v-show="visible" class="btn-next">Next</button>
-        <section class="information">    
-            <InfoWords :msg="Hello" />
-        </section>
+      </div>            
     </section>
   </main>
 </template>
@@ -70,14 +98,14 @@ h1{
     margin-left: 45px;
     color: antiquewhite;
 }
-h2.title-words{
-  font-family: "Press Start 2P";
-  font-size: 40px;
-  
-}
 h3.subtitle{
   font-family: "Press Start 2P";
   font-size: 20px;
+  margin-block: auto;
+  margin-top: 10px;
+}
+h3.username{
+  margin-top: 18px;
 }
 main {
   display: flex;
@@ -85,24 +113,41 @@ main {
 }
 
 section.board {
-  margin-top: 230px;
   margin-left: 5px;
   margin-right: 35px;
   background-color: rgb(77, 74, 74);
   border-radius: 20px;  
   padding: 20px;
-  height: 440px;
-  width: 300px;
+  height: 670px;
+  width: 800px;
   gap: 10px;
-  grid-template-columns: repeat(5, 1fr);
 }
 section.cell {
-  margin-top: 10px;
-  margin-left: 13px;  
+  margin-top: 26px;
+  margin-left: 25px;  
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
 }
+
+div.pole{
+  margin-top: 20px;
+  max-height: 480px;
+  overflow: auto;
+  border-radius: 20px;
+}
+
+div.player {
+  background-color: rgb(235, 174, 32);
+  //margin-right: 500px;
+  height: 55px;
+  width: 200px;
+  position: relative;
+  /* для сдвига элемента влево на 20px */
+  left: -20px; /* или right: 20px; */
+  border-radius: 10px;
+}
+
 section.information {
   display: grid;
   width: fit-content;
@@ -115,7 +160,6 @@ section.information {
   border: none;
   font-size: 1.2rem;
   border-radius: 0.5rem;
-  display: block;
   transition: all 0.3s;
   margin-top: 20px;
   max-height: 20px;
@@ -130,7 +174,6 @@ section.information {
   border: none;
   font-size: 1.2rem;
   border-radius: 0.5rem;
-  display: block;
   transition: all 0.3s;
   margin-top: 20px;
   max-height: 20px;
@@ -145,12 +188,12 @@ section.information {
   border: none;
   font-size: 1.2rem;
   border-radius: 0.5rem;
-  display: block;
   transition: all 0.3s;
   margin-top: 20px;
   max-height: 20px;
   position: relative;
   background-color: green;
+  display: block;
 }
 .btn {
   float: right;
@@ -226,9 +269,11 @@ p{
 div.title-border{
   position: fixed;
   
-  margin-left: 550px;
+  margin-left: 200px;
 
   width: 400px;
+
+  height: 40px;
 
   background-color:rgb(235, 174, 32);
 

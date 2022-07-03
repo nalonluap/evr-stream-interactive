@@ -62,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <div v-for="item in 5" :key="item.letter">
+  <div v-for="item in 5" :key="item.letter" class="cells">
     <div v-if="yellowLetter(this.pWord[item - 1]) == true" class="words-yellow"> 
       <b>{{ this.pWord[item - 1] }}</b>
     </div>
@@ -77,26 +77,23 @@ export default {
 
 <style lang="scss" scoped>
 
-b {
-  font-size: 15px;
-}
 div.words-green {
   background-color: green;
   user-select: none;
-  width: 35px;
-  height: 35px;
-  border: 1px solid gray;
+  width: 55px;
+  height: 55px;
+  border: 2px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
   display: grid;
   place-items: center;
 }
 div.words-yellow {
-  background-color: rgb(205, 205, 8);
+  background-color: rgb(205, 181, 28);
   user-select: none;
-  width: 35px;
-  height: 35px;
-  border: 1px solid gray;
+  width: 55px;
+  height: 55px;
+  border: 2px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
   display: grid;
@@ -104,16 +101,16 @@ div.words-yellow {
 }
 div.words {
   user-select: none;
-  width: 35px;
-  height: 35px;
-  border: 1px solid gray;
+  width: 55px;
+  height: 55px;
+  border: 2px solid gray;
   color: rgb(222, 219, 219);
   font-size: 2rem;
-  display: grid;
   place-items: center;
 }
 div {
   border-radius: 5px;
 }
+
 
 </style>

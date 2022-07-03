@@ -11,7 +11,8 @@ exports.OnMessageInTwitchChat = async (user, message, channel) => {
         console.log(reg_users);
 
         if (reg_users.includes(user)) {
-            socket.MessageFromTwitch(user, message, channel);
+            chat_message = Filter(chat_message); // basic filtering
+            socket.MessageFromTwitch(user, chat_message, channel);
             console.log(`${channel} ${user}: ${chat_message}`)
         }
     }
@@ -72,5 +73,27 @@ async function GetRegisteredUser(channel) {
         return reg_users;
     } catch (err) {
         log.error(`Error in game module game-text func GetRegisteredUser ${err.message}`);
+    }
+}
+
+function Filter(message) {
+
+    if(message.length == 5) {
+
+        let check_en = /^[a-zA-Z]+$/.test(message);
+
+        if (check_en){
+            message.toUpperCase();
+            return message.split('');
+        } else {
+            alert('Invalid characters are used in the word');
+        }
+        
+    } else {
+        if (message.length > 5){
+            alert('There are more than 5 letters in your word');
+        } else {
+            alert('There are less than 5 letters in your word');
+        }
     }
 }

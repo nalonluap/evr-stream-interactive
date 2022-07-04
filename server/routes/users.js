@@ -16,9 +16,9 @@ routes.get('/getUser', async (req, res) => {
         });
 
         if (user != []) {
-            res.status(200).json({ message: 'User was found' })
+            res.status(200).json({ message: 'User was found', found: true });
         } else {
-            res.status(404);
+            res.status(200).json({ message: 'User was not found', found: false });
         }
 
     } catch (err) {

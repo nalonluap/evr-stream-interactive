@@ -10,9 +10,9 @@ exports.MessageFromTwitch = (user, message, channel) => {
     const socketID = await getChannelID(channel);
 
     axios.post(socket_host + '/message', {
-        user: user,
+        username: user,
         message: message,
-        socketId: socketID 
+        socketID: socketID 
     })
 
 }

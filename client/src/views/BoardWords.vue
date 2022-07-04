@@ -1,10 +1,8 @@
 <script>
+import CellWords from "./CellWords.vue";
+import { io } from "socket.io-client";
 
-import CellWords from './CellWords.vue';
-
-const { io } = require("socket.io-client");
-
-const socket = io('http://localhost:3001');
+const socket = io("http://localhost:3001");
 
 export default {
   components: {
@@ -15,41 +13,44 @@ export default {
     return {
       count: 0,
       visible: false,
-      word: 'WORSD',
-      username: 'John',
+      word: "WORSD",
+      username: "John",
     };
   },
 
   created() {
     //only test filling
     this.count = 0;
-    
-    try{
+
+    try {
       socket.on("connect", () => {
         // game socket connection
-        console.log('game socket connection')
+        console.log(socket.id);
+        console.log("game socket connection");
       });
-    }
-    catch (error) {
-        console.log(`Error game server connection ${error.message}`);
-    }
 
+      socket.on("message", (data) => {
+        console.log(data);
+      });
+      // in this point we get a message from twitch
+      //{ "message": "hello","username": "Popa" }
+    } catch (error) {
+      console.log(`Error game server connection ${error.message}`);
+    }
   },
 
   updated() {
-
     // whenever data changes and the component re-renders, this is called.
     this.scrollToEnd();
-    
   },
 
   methods: {
-    nextWord(){
+    nextWord() {
       this.count++;
       //this.GetWord();
     },
 
-    clearCells(){
+    clearCells() {
       this.count = 0;
     },
 
@@ -62,12 +63,11 @@ export default {
     parseJson(message) {
       let userData = JSON.parse(message);
 
-      this.word = userData['message'];
-      this.username = userData['username'];
-    }
-
-  }
-}
+      this.word = userData["message"];
+      this.username = userData["username"];
+    },
+  },
+};
 //defineProps({ board: Array, wiggle: Array, evaluation: Array });
 </script>
 
@@ -77,34 +77,47 @@ export default {
       <div class="title-border">
         <h3 class="subtitle">EVR Interactive</h3>
       </div>
-      <button @click="clearCells()" class ="btn btn-red btn-help">?</button>
-      <button @click="clearCells()" class ="btn btn-red btn-reload"></button>
-      <button @click="visible=true" v-show="!visible" class="btn-start">Start Game</button>
-      <button @click="clearCells(), visible=!visible" v-show="visible" class="btn-cancel">End Game</button>
+      <button @click="clearCells()" class="btn btn-red btn-help">?</button>
+      <button @click="clearCells()" class="btn btn-red btn-reload"></button>
+      <button @click="visible = true" v-show="!visible" class="btn-start">
+        Start Game
+      </button>
+      <button
+        @click="clearCells(), (visible = !visible)"
+        v-show="visible"
+        class="btn-cancel"
+      >
+        End Game
+      </button>
       <div class="pole" id="foo">
-        <section v-for="item in count" :key="item" v-show="visible" class="cell">
+        <section
+          v-for="item in count"
+          :key="item"
+          v-show="visible"
+          class="cell"
+        >
           <div class="player">
-            <h3 class="subtitle username">{{this.username}}</h3>
+            <h3 class="subtitle username">{{ this.username }}</h3>
           </div>
-          <CellWords :pWord="word"/>   
+          <CellWords :pWord="word" />
         </section>
-      </div>            
+      </div>
     </section>
   </main>
 </template>
 
 <style lang="scss" scoped>
-h1{
-    margin-left: 45px;
-    color: antiquewhite;
+h1 {
+  margin-left: 45px;
+  color: antiquewhite;
 }
-h3.subtitle{
+h3.subtitle {
   font-family: "Press Start 2P";
   font-size: 20px;
   margin-block: auto;
   margin-top: 10px;
 }
-h3.username{
+h3.username {
   margin-top: 18px;
 }
 main {
@@ -116,7 +129,7 @@ section.board {
   margin-left: 5px;
   margin-right: 35px;
   background-color: rgb(77, 74, 74);
-  border-radius: 20px;  
+  border-radius: 20px;
   padding: 20px;
   height: 670px;
   width: 800px;
@@ -124,13 +137,13 @@ section.board {
 }
 section.cell {
   margin-top: 26px;
-  margin-left: 25px;  
+  margin-left: 25px;
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(6, 1fr);
 }
 
-div.pole{
+div.pole {
   margin-top: 20px;
   max-height: 480px;
   overflow: auto;
@@ -152,7 +165,7 @@ section.information {
   display: grid;
   width: fit-content;
 }
-.btn-cancel{
+.btn-cancel {
   width: 100%;
   min-height: 40px;
   /*margin-top: 10px;*/
@@ -166,7 +179,7 @@ section.information {
   position: relative;
   background-color: maroon;
 }
-.btn-start{
+.btn-start {
   width: 100%;
   min-height: 40px;
   /*margin-top: 10px;*/
@@ -180,7 +193,7 @@ section.information {
   position: relative;
   background-color: wheat;
 }
-.btn-next{
+.btn-next {
   width: 100%;
   min-height: 40px;
   /*margin-top: 10px;*/
@@ -206,7 +219,7 @@ section.information {
   padding: 0 5px 0 6px;
   margin: 0px 0 0px 0;
   position: relative;
-  transition: all .5s;
+  transition: all 0.5s;
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
@@ -221,7 +234,7 @@ section.information {
 }
 
 .btn-reload:before {
-  content: '';
+  content: "";
   width: 16px;
   height: 16px;
   display: block;
@@ -231,64 +244,64 @@ section.information {
   transform: rotate(45deg);
   position: absolute;
   top: 11px;
-  right: 11px; 
+  right: 11px;
 }
 
 .btn-reload:after {
-  content: ""; 
-  position: absolute; 
-  width: 0; 
-  height: 0; 
-  border: 6px solid transparent; 
-  border-left-color: #555; 
-  top: 8px; 
-  right: 10px; 
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-left-color: #555;
+  top: 8px;
+  right: 10px;
 }
 
-.btn-red{
-  background-color: orange; 
+.btn-red {
+  background-color: orange;
 }
 
 .btn-red:before {
-  border-color:#fff; 
-  border-top-color: transparent;  
+  border-color: #fff;
+  border-top-color: transparent;
 }
 
 .btn-red:after {
-  border:6px solid transparent; 
-  border-left-color:#fff; 
+  border: 6px solid transparent;
+  border-left-color: #fff;
 }
-.btn-help{
-  float:left;
-  color:#fff;
-  font-size:30px;
+.btn-help {
+  float: left;
+  color: #fff;
+  font-size: 30px;
 }
-p{
+p {
   margin-bottom: 40px;
 }
-div.title-border{
+div.title-border {
   position: fixed;
-  
+
   margin-left: 200px;
 
   width: 400px;
 
   height: 40px;
 
-  background-color:rgb(235, 174, 32);
+  background-color: rgb(235, 174, 32);
 
-  border-right:5px solid rgb(0, 169, 73);
-  
-  border-left:5px solid rgb(152, 152, 152);
+  border-right: 5px solid rgb(0, 169, 73);
 
-  border-bottom:5px solid rgb(42, 41, 41);
+  border-left: 5px solid rgb(152, 152, 152);
 
-  border-top:5px solid rgb(239, 239, 239);
+  border-bottom: 5px solid rgb(42, 41, 41);
 
-  border-radius:50px;
+  border-top: 5px solid rgb(239, 239, 239);
 
-  -webkit-border-radius:10px;
+  border-radius: 50px;
 
-  -moz-border-radius:10px;
+  -webkit-border-radius: 10px;
+
+  -moz-border-radius: 10px;
 }
 </style>
